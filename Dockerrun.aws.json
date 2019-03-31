@@ -1,0 +1,25 @@
+{
+  "AWSEBDockerrunVersion": 2,
+  "volumes": [],
+  "containerDefinitions": [
+    {
+      "name": "app",
+      "image": "gambit10/myapp1_app",
+      "environment": [
+        {
+          "name": "RAILS_ENV",
+          "value": "production"
+        }
+      ],
+      "essential": true,
+      "memory": 128,
+      "mountPoints": [],
+      "portMappings": [
+        {
+          "containerPort": 3000,
+          "hostPort": 80
+        }
+      ]
+    }
+  ]
+}
