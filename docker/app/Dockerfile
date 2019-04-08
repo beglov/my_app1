@@ -1,17 +1,16 @@
 FROM ruby:2.6
 
-RUN echo 'gem: --no-ri --no-rdoc' > ~/.gemrc
-
 RUN apt-get update -qq && apt-get install -y nodejs postgresql-client
 
-RUN mkdir /app
 WORKDIR /app
 
-COPY Gemfile /app/Gemfile
-COPY Gemfile.lock /app/Gemfile.lock
+COPY Gemfile Gemfile
+COPY Gemfile.lock Gemfile.lock
 RUN bundle install
 
-COPY . /app
+COPY . .
+
+#RUN bundle exec rake assets:precompile
 
 # Add a script to be executed every time the container starts.
 COPY entrypoint.sh /usr/bin/
@@ -22,3 +21,4 @@ EXPOSE 3000
 
 # Start the main process.
 CMD ["rails", "server", "-b", "0.0.0.0"]
+#CMD ["bundle", "exec", "puma", "-C", "config/puma.rb"]
